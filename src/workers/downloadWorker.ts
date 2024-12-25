@@ -1,6 +1,6 @@
 import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
 import ytdl from 'ytdl-core';
-import ffmpeg from 'fluent-ffmpeg';
+const ffmpeg = require('fluent-ffmpeg');
 import { logger } from '../utils/logger';
 import { PrismaClient } from '@prisma/client';
 
@@ -46,7 +46,8 @@ async function processDownload(job: DownloadJob) {
     // Processa o download
     if (job.format === 'mp3') {
       await new Promise((resolve, reject) => {
-        ffmpeg(stream)
+        new ffmpeg()
+          .addInput(stream)
           .toFormat('mp3')
           .on('end', resolve)
           .on('error', reject)

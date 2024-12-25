@@ -2,8 +2,8 @@ import { Worker } from 'worker_threads';
 import { logger } from '../utils/logger';
 import { PrismaClient } from '@prisma/client';
 import path from 'path';
+import { prisma } from '../lib/prisma'
 
-const prisma = new PrismaClient();
 
 export class DownloadQueue {
   private workers: Worker[] = [];
