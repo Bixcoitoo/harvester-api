@@ -1,20 +1,11 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "dist/server.js",
-        "use": "@vercel/node",
-        "config": {
-          "prisma": {
-            "generate": true
-          }
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "dist/server.js"
-      }
-    ]
+  "version": 2,
+  "buildCommand": "npx prisma generate && npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "framework": "node",
+  "regions": ["gru1"],
+  "env": {
+    "NODE_ENV": "production"
   }
+}
