@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Download {
+  id        String   @id @default(uuid())
+  userId    String
+  url       String
+  format    String
+  status    String   @default("pending")
+  progress  Int      @default(0)
+  createdAt DateTime @default(now())
+  error     String?
+  
+  @@index([userId])
+}
+
+model User {
+  id           String   @id
+  downloadsCount Int    @default(0)
+  lastReset    DateTime @default(now())
+  isPremium    Boolean  @default(false)
+}
